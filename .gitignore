@@ -20,7 +20,8 @@ env/
 *.swo
 
 # Data
-data/workplace.db
+*.db
+data/*.db
 data/exports/
 data/backups/
 
