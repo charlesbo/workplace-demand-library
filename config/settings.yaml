@@ -1,0 +1,74 @@
+# 全局设置
+app:
+  name: "职场需求库"
+  version: "1.0.0"
+  data_dir: "./data"
+  log_dir: "./logs"
+  log_level: "INFO"
+
+# AI 分析配置
+ai:
+  provider: "anthropic"           # anthropic / openai / ollama
+  api_key: "${ANTHROPIC_API_KEY}" # 从环境变量读取
+  model: "claude-sonnet-4-20250514"
+  max_tokens: 4096
+  temperature: 0.3
+  batch_size: 5                   # 每次分析的文章数
+  daily_budget: 100               # 每日 API 调用预算（次数）
+
+# 抓取全局配置
+scraping:
+  default_interval: 5             # 默认请求间隔（秒）
+  max_retries: 3
+  timeout: 30
+  use_proxy: false
+  proxy_list: []
+
+# 搜索关键词（所有平台通用）
+keywords:
+  primary:
+    - "职场"
+    - "工作"
+    - "跳槽"
+    - "面试"
+    - "升职"
+    - "加薪"
+    - "辞职"
+    - "管理"
+    - "领导力"
+    - "团队"
+  secondary:
+    - "职业规划"
+    - "职业发展"
+    - "工作压力"
+    - "职场沟通"
+    - "办公室政治"
+    - "远程办公"
+    - "内卷"
+    - "35岁"
+    - "裁员"
+    - "绩效"
+
+# 定时任务
+scheduler:
+  crawl_interval_hours: 6
+  analyze_interval_hours: 12
+  trend_snapshot: "0 0 * * 1"     # 每周一凌晨
+  cleanup_days: 90                # 清理超过N天的原始HTML
+
+# Web 服务
+server:
+  host: "0.0.0.0"
+  port: 8000
+  cors_origins: ["*"]
+
+# 导出
+export:
+  default_format: "excel"
+  output_dir: "./data/exports"
+
+# 备份
+backup:
+  enabled: true
+  max_backups: 4                  # 保留最近N个备份
+  backup_dir: "./data/backups"

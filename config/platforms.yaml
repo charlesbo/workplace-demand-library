@@ -1,0 +1,73 @@
+# 各平台独立配置
+zhihu:
+  enabled: true
+  interval: 8                     # 请求间隔（秒），知乎要更保守
+  topics:
+    - "职场"
+    - "求职"
+    - "职业发展"
+    - "人际交往"
+  min_upvotes: 100                # 只抓点赞数超过此值的回答
+  cookie: ""                      # 知乎 Cookie（手动填入）
+  use_playwright: true
+
+kr36:
+  enabled: true
+  interval: 3
+  channels:
+    - "workplace"
+  use_playwright: false
+
+huxiu:
+  enabled: true
+  interval: 4
+  use_playwright: false
+
+juejin:
+  enabled: true
+  interval: 3
+  categories:
+    - "career"
+  use_playwright: false
+
+toutiao:
+  enabled: false                  # 默认关闭，反爬较难
+  interval: 10
+  use_playwright: true
+
+douban:
+  enabled: true
+  interval: 5
+  groups:
+    - "shangban"                  # "上班这件事"
+    - "985waste"                  # 按实际小组 ID 填写
+  cookie: ""
+
+xiaohongshu:
+  enabled: false                  # 默认关闭，反爬很严
+  interval: 10
+  use_playwright: true
+
+bilibili:
+  enabled: true
+  interval: 3
+  use_playwright: false
+
+weixin_sogou:
+  enabled: true
+  interval: 15                    # 搜狗限制严格
+  use_playwright: true
+
+maimai:
+  enabled: false                  # 需登录，默认关闭
+  interval: 8
+  cookie: ""
+
+baidu_baijiahao:
+  enabled: true
+  interval: 5
+  use_playwright: false
+
+rss_feeds:
+  enabled: true
+  feeds: []                       # 用户自行添加 RSS 地址
