@@ -1,0 +1,44 @@
+# 网络请求
+requests>=2.31.0
+httpx>=0.25.0
+playwright>=1.40.0
+beautifulsoup4>=4.12.0
+lxml>=5.0.0
+feedparser>=6.0.0
+
+# 数据库
+sqlalchemy>=2.0.0
+alembic>=1.13.0
+
+# Web 框架
+fastapi>=0.109.0
+uvicorn>=0.27.0
+pydantic>=2.5.0
+
+# AI
+anthropic>=0.18.0
+
+# 数据处理
+openpyxl>=3.1.0
+pandas>=2.1.0
+
+# 定时任务
+apscheduler>=3.10.0
+
+# CLI
+click>=8.1.0
+
+# 工具
+pyyaml>=6.0.0
+python-dotenv>=1.0.0
+fake-useragent>=1.4.0
+python-Levenshtein>=0.23.0
+jieba>=0.42.0
+
+# 日志
+rich>=13.0.0
+loguru>=0.7.0
+
+# 测试
+pytest>=7.4.0
+pytest-asyncio>=0.23.0
