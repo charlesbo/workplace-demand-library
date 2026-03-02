@@ -27,7 +27,7 @@
 ### 安装
 
 ```bash
-git clone https://github.com/<your-org>/workplace-demand-library.git
+git clone https://github.com/charlesbo/workplace-demand-library.git
 cd workplace-demand-library
 pip install -r requirements.txt
 playwright install  # 可选，抓取 JS 渲染页面时需要
