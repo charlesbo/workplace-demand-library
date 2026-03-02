@@ -202,3 +202,63 @@ def test_scraper_get_keywords():
         assert len(keywords) > 0
     finally:
         _stop_patches(patchers)
+
+
+# ---------------------------------------------------------------------------
+# Package __init__.py imports
+# ---------------------------------------------------------------------------
+
+
+class TestPackageImports:
+    """Verify that package-level imports work correctly after __init__.py fix."""
+
+    def test_scrapers_package_imports(self):
+        """All scraper classes should be importable from src.scrapers."""
+        from src.scrapers import (
+            BaseScraper,
+            BaiduBaijiahaoScraper,
+            BilibiliScraper,
+            DoubanScraper,
+            HuxiuScraper,
+            JuejinScraper,
+            Kr36Scraper,
+            MaimaiScraper,
+            RssGenericScraper,
+            ToutiaoScraper,
+            WeixinSogouScraper,
+            XiaohongshuScraper,
+            ZhihuScraper,
+        )
+        assert BaseScraper is not None
+        assert Kr36Scraper is not None
+        assert ZhihuScraper is not None
+        assert BaiduBaijiahaoScraper is not None
+
+    def test_exporter_package_imports(self):
+        """All exporter classes should be importable from src.exporter."""
+        from src.exporter import (
+            CsvExporter,
+            ExcelExporter,
+            MarkdownExporter,
+            NotionExporter,
+        )
+        assert ExcelExporter is not None
+        assert CsvExporter is not None
+        assert MarkdownExporter is not None
+        assert NotionExporter is not None
+
+
+# ---------------------------------------------------------------------------
+# Database default path resolution
+# ---------------------------------------------------------------------------
+
+
+class TestDatabaseDefaultPath:
+    """Verify that get_engine resolves the DB path from config by default."""
+
+    def test_default_db_path_from_config(self):
+        """_default_db_path should return a path under app.data_dir."""
+        from src.storage.database import _default_db_path
+        path = _default_db_path()
+        assert "workplace_demand.db" in path
+        assert "data" in path

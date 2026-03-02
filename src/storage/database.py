@@ -35,17 +35,34 @@ _SessionFactory: Optional[sessionmaker[Session]] = None
 # Engine / Session helpers
 # ---------------------------------------------------------------------------
 
-def get_engine(db_path: str = "workplace_demand.db") -> Engine:
+def _default_db_path() -> str:
+    """Derive the default database path from config or fall back to ``./data/workplace_demand.db``."""
+    try:
+        from src.utils.config import get_settings
+        settings = get_settings()
+        data_dir = settings.get("app", {}).get("data_dir", "./data")
+    except Exception:
+        data_dir = "./data"
+    import os
+    os.makedirs(data_dir, exist_ok=True)
+    return os.path.join(data_dir, "workplace_demand.db")
+
+
+def get_engine(db_path: Optional[str] = None) -> Engine:
     """Create (or return the cached) SQLAlchemy engine for a SQLite database.
 
     Args:
-        db_path: Path to the SQLite database file.
+        db_path: Path to the SQLite database file.  When *None*, the path is
+                 read from ``config/settings.yaml`` (``app.data_dir``) or
+                 defaults to ``./data/workplace_demand.db``.
 
     Returns:
         A SQLAlchemy ``Engine`` instance.
     """
     global _engine
     if _engine is None:
+        if db_path is None:
+            db_path = _default_db_path()
         url = f"sqlite:///{db_path}"
         _engine = create_engine(url, echo=False, future=True)
     return _engine
@@ -83,11 +100,12 @@ def get_session(engine: Optional[Engine] = None) -> Generator[Session, None, Non
         session.close()
 
 
-def init_db(db_path: str = "workplace_demand.db") -> Engine:
+def init_db(db_path: Optional[str] = None) -> Engine:
     """Initialise the database: create engine and all tables.
 
     Args:
-        db_path: Path to the SQLite database file.
+        db_path: Path to the SQLite database file.  When *None*, the path is
+                 resolved from config (same as ``get_engine``).
 
     Returns:
         The SQLAlchemy ``Engine`` used for the database.

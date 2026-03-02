@@ -339,15 +339,19 @@ workplace-demand-library/
 ## 🧪 测试
 
 ```bash
-# 运行全部测试
-pytest tests/
+# 运行全部测试（38 个）
+pytest tests/ -v
 
 # 运行指定测试文件
-pytest tests/test_extractor.py -v
-
-# 异步测试
-pytest tests/ -v --asyncio-mode=auto
+pytest tests/test_scrapers.py -v
+pytest tests/test_analyzer.py -v
+pytest tests/test_api.py -v
 ```
+
+测试覆盖：
+- **test_scrapers.py** — 爬虫基类热度标准化、URL 去重、各平台爬虫初始化、包导入、数据库路径解析
+- **test_analyzer.py** — Prompt 模板、分类器、语义去重、JSON 解析
+- **test_api.py** — FastAPI 端点（健康检查、文章列表、需求列表、分析总览、搜索等）
 
 ---
 
