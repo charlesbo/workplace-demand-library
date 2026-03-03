@@ -48,7 +48,7 @@ class HttpClient:
 
         self.max_retries: int = config.get("max_retries", 3)
         self.retry_base: float = config.get("retry_base", 1.0)
-        self.timeout: float = config.get("timeout", 30)
+        self.timeout: float = config.get("timeout", 15)
         self.proxy_list: list[str] = config.get("proxy_list", [])
         self.cookies: dict[str, str] = config.get("cookies", {})
         self.extra_headers: dict[str, str] = config.get("headers", {})
@@ -219,12 +219,12 @@ class HttpClient:
 
             try:
                 with httpx.Client(
-                    timeout=self.timeout,
+                    timeout=httpx.Timeout(self.timeout, connect=10.0),
                     cookies=cookies,
                     follow_redirects=True,
                     **transport_kwargs,
                 ) as client:
-                    logger.debug(
+                    logger.info(
                         "[{}] {} {} (attempt {}/{}{})",
                         self.platform,
                         method.upper(),
@@ -322,12 +322,12 @@ class HttpClient:
 
             try:
                 async with httpx.AsyncClient(
-                    timeout=self.timeout,
+                    timeout=httpx.Timeout(self.timeout, connect=10.0),
                     cookies=cookies,
                     follow_redirects=True,
                     **transport_kwargs,
                 ) as client:
-                    logger.debug(
+                    logger.info(
                         "[{}] async {} {} (attempt {}/{}{})",
                         self.platform,
                         method.upper(),
