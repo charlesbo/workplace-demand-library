@@ -67,9 +67,9 @@ class HttpClient:
         try:
             from src.utils.rate_limiter import RateLimiter  # type: ignore[import-untyped]
 
-            self._rate_limiter = RateLimiter(
-                platform=self.platform, config=self.rate_limit_config
-            )
+            self._rate_limiter = RateLimiter()
+            interval = (self.rate_limit_config or {}).get("interval", 2)
+            self._rate_limiter.configure(self.platform, interval)
             logger.debug("Rate limiter initialised for {}", self.platform)
         except ImportError:
             logger.debug("rate_limiter module not available — skipping rate limiting")
@@ -141,15 +141,15 @@ class HttpClient:
     def _wait_for_rate_limit(self) -> None:
         """Block until the rate limiter allows the next request (sync)."""
         if self._rate_limiter is not None:
-            self._rate_limiter.wait()
+            self._rate_limiter.wait(self.platform)
 
     async def _async_wait_for_rate_limit(self) -> None:
         """Await until the rate limiter allows the next request (async)."""
         if self._rate_limiter is not None:
             if asyncio.iscoroutinefunction(getattr(self._rate_limiter, "async_wait", None)):
-                await self._rate_limiter.async_wait()
+                await self._rate_limiter.async_wait(self.platform)
             else:
-                self._rate_limiter.wait()
+                self._rate_limiter.wait(self.platform)
 
     # ------------------------------------------------------------------
     # Retry / back-off helpers
