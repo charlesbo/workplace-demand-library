@@ -8,9 +8,9 @@ app:
 
 # AI 分析配置
 ai:
-  provider: "anthropic"           # anthropic / openai / ollama
-  api_key: "${ANTHROPIC_API_KEY}" # 从环境变量读取
-  model: "claude-sonnet-4-20250514"
+  provider: "openai"           # anthropic / openai / ollama
+  api_key: "${OPENAI_API_KEY}" # 从环境变量读取
+  model: "grok-4-latest"
   max_tokens: 4096
   temperature: 0.3
   batch_size: 5                   # 每次分析的文章数

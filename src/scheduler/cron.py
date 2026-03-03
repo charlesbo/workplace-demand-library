@@ -85,7 +85,7 @@ def job_crawl_all() -> None:
             continue
         try:
             logger.info(f"开始抓取平台: {name}")
-            scraper = scraper_cls(name)
+            scraper = scraper_cls()
             result = scraper.run()
             logger.info(f"平台 {name} 抓取完成: {result}")
         except Exception:

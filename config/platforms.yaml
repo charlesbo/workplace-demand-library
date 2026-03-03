@@ -12,19 +12,19 @@ zhihu:
   use_playwright: true
 
 kr36:
-  enabled: true
+  enabled: false
   interval: 3
   channels:
     - "workplace"
   use_playwright: false
 
 huxiu:
-  enabled: true
+  enabled: false
   interval: 4
   use_playwright: false
 
 juejin:
-  enabled: true
+  enabled: false
   interval: 3
   categories:
     - "career"
@@ -36,7 +36,7 @@ toutiao:
   use_playwright: true
 
 douban:
-  enabled: true
+  enabled: false
   interval: 5
   groups:
     - "shangban"                  # "上班这件事"
@@ -49,12 +49,12 @@ xiaohongshu:
   use_playwright: true
 
 bilibili:
-  enabled: true
+  enabled: false
   interval: 3
   use_playwright: false
 
 weixin_sogou:
-  enabled: true
+  enabled: false
   interval: 15                    # 搜狗限制严格
   use_playwright: true
 
@@ -64,10 +64,10 @@ maimai:
   cookie: ""
 
 baidu_baijiahao:
-  enabled: true
+  enabled: false
   interval: 5
   use_playwright: false
 
 rss_feeds:
-  enabled: true
+  enabled: false
   feeds: []                       # 用户自行添加 RSS 地址

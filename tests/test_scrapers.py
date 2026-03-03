@@ -262,3 +262,33 @@ class TestDatabaseDefaultPath:
         path = _default_db_path()
         assert "workplace_demand.db" in path
         assert "data" in path
+
+
+# ---------------------------------------------------------------------------
+# Scheduler scraper instantiation
+# ---------------------------------------------------------------------------
+
+
+class TestSchedulerScraperInit:
+    """Verify scrapers are instantiated without extra arguments."""
+
+    def test_all_scrapers_init_no_args(self):
+        """Every concrete scraper must be instantiable with zero arguments."""
+        patchers = _apply_patches()
+        try:
+            from src.scrapers import (
+                Kr36Scraper, HuxiuScraper, ZhihuScraper, JuejinScraper,
+                ToutiaoScraper, DoubanScraper, XiaohongshuScraper,
+                BilibiliScraper, WeixinSogouScraper, MaimaiScraper,
+                BaiduBaijiahaoScraper, RssGenericScraper,
+            )
+            for cls in [
+                Kr36Scraper, HuxiuScraper, ZhihuScraper, JuejinScraper,
+                ToutiaoScraper, DoubanScraper, XiaohongshuScraper,
+                BilibiliScraper, WeixinSogouScraper, MaimaiScraper,
+                BaiduBaijiahaoScraper, RssGenericScraper,
+            ]:
+                scraper = cls()  # must not raise TypeError
+                assert scraper.platform_name
+        finally:
+            _stop_patches(patchers)
